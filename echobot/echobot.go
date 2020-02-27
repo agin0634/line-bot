@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -35,13 +36,21 @@ func main() {
 					if _, err = bot.ReplyMessage(
 						event.ReplyToken,
 						linebot.NewTextMessage(message.Text)).Do(); err != nil {
-						log.Print(err)
+						//log.Print(err)
+						log.Print("reply message err")
 					}
+					data, err := json.Marshal(message)
+					if err != nil {
+						log.Print("json err")
+					}
+
+					log.Printf("user: %s\n", data)
 				case *linebot.StickerMessage:
 					replyMessage := fmt.Sprintf(
 						"sticker id is %s, stickerType is %s", message.StickerID, message.StickerResourceType)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(replyMessage)).Do(); err != nil {
-						log.Print(err)
+						//log.Print(err)
+						log.Print("reply sticker err")
 					}
 
 				}
