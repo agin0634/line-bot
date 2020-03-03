@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -32,15 +31,12 @@ func main() {
 			if event.Type == linebot.EventTypeMessage {
 				switch message := event.Message.(type) {
 				case *linebot.TextMessage:
+					originalContentURL := "https://storage.googleapis.com/line-bot-01-269403.appspot.com/" + message.Text + ".jpg"
+					previewImageURL := "https://storage.googleapis.com/line-bot-01-269403.appspot.com/" + message.Text + ".jpg"
+
 					if _, err = bot.ReplyMessage(
 						event.ReplyToken,
-						linebot.NewTextMessage(message.Text)).Do(); err != nil {
-						log.Fatal(err)
-					}
-				case *linebot.StickerMessage:
-					replyMessage := fmt.Sprintf(
-						"sticker id is %s, stickerType is %s", message.StickerID, message.StickerResourceType)
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(replyMessage)).Do(); err != nil {
+						linebot.NewImageMessage(originalContentURL, previewImageURL)).Do(); err != nil {
 						log.Fatal(err)
 					}
 				}
