@@ -67,6 +67,12 @@ func main() {
 						log.Fatal(err)
 					}
 				}
+			} else if event.Type == linebot.EventTypeFollow {
+				if _, err := bot.ReplyMessage(
+					event.ReplyToken,
+					linebot.NewTextMessage("歡迎參加xxx活動，請輸入照片代碼")).Do(); err != nil {
+					log.Fatal(err)
+				}
 			}
 		}
 	})
