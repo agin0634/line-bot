@@ -13,8 +13,10 @@
 # limitations under the License.
 
 # [START runtime]
-runtime: go
-env: flex
+runtime: go111
+#api_version: go1
+env: standard
+#env: flex
 
 env_variables:
     CHANNEL_SECRET: 'a0b188d6a3959a7a87625cfc15399484'
